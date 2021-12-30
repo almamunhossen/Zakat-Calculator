@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./imags/zakat icon.png">
+    <!-- <link rel="icon" type="image/x-icon" href="https://i.ibb.co/pXhsh75/ZAKAT-1.png"> -->
+    <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
+    <title>Zakat Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section>
+        <div class="header">
+            <h1>Zakat Calculator</h1>
+        </div>
+        <div class="all-items">
+            <label for="gold">Total Gold Value:
+                <input type="parseFloat" name="parseFloat" value="0" id="gold" placeholder="Total Gold Value">
+            </label>
+            <label for="silver">Total Silver Value:
+                <input type="parseFloat" name="parseFloat" value="0" id="silver">
+            </label>
+            <label for="cssh">Cash on Hand:
+                <input type="parseFloat" name="parseFloat" value="0" id="cssh">
+            </label>
+            <label for="saving">Saving Account:
+                <input type="parseFloat" name="parseFloat" value="0" id="saving">
+            </label>
+            <label for="bussinesAc">Business Bank Account:
+                <input type="parseFloat" name="parseFloat" value="0" id="bussinesAc">
+            </label>
+            <label for="insurance">Insurance Value:
+                <input type="parseFloat" name="parseFloat" value="0" id="insurance">
+            </label>
+            <label for="realState">Real State Property:
+                <input type="parseFloat" name="parseFloat" value="0" id="realState">
+            </label>
+            <label for="merchandiseInv">Merchandise Inventory:
+                <input type="parseFloat" name="parseFloat" value="0" id="merchandiseInv">
+            </label>
+            <label for="storckMutualFunds">Storck &amp; Mutual Funds:
+                <input type="parseFloat" name="parseFloat" value="0" id="storckMutualFunds">
+            </label>
+            <label for="liabilities">Liabilities:
+                <input type="parseFloat" name="parseFloat" value="0" id="liabilities">
+            </label>
+
+            <div class="result">
+                <div>
+                    <h3>Total Assets: <span class="right-side" id="sub">00 ৳</span> </h3>
+                    <h3>Pay Zakat : <span class="right-side" id="payZakat">00 ৳</span></h3>
+                    <!-- <h3 >Pay Zakat : <span  class='right-side' id='payZakat-in'>00 ₹</span></h3> -->
+                </div>
+                <button id="button">Calculate</button>
+            </div>
+        </div>
+
+
+        <footer>
+            <a href="https://www.almamunhossen.com/" target="_blank"> © <span id="year">2021</span> Al Mamun Hossen</a>
+        </footer>
+    </section>
+
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
