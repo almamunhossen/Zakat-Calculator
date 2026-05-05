@@ -2,73 +2,267 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./imags/zakat icon.png">
-    <!-- <link rel="icon" type="image/x-icon" href="https://i.ibb.co/pXhsh75/ZAKAT-1.png"> -->
-    <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
-    <title>Zakat Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Zakat Pro | Multi-Currency (BDT · SAR · USD)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
+  <link rel="icon" type="image/x-icon" href="./imags/zakat icon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <section>
-        <div class="header">
-            <h1>Zakat Calculator</h1>
+  <div class="app-header">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-hand-holding-heart"></i></div>
+      <div class="logo-text">
+        <h1>Zakat Al-Mal</h1>
+        <p>بالتكي · টাকা · USD</p>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="currency-selector">
+        <i class="fas fa-globe"></i>
+        <select id="currencySelect">
+          <option value="BDT">৳ BDT (Taka)</option>
+          <option value="SAR">SAR (Riyal)</option>
+          <option value="USD">$ USD (Dollar)</option>
+        </select>
+        <span id="sarIconPlaceholder" style="display: inline-flex; align-items: center;"></span>
+      </div>
+      <div class="theme-toggle" id="darkmodeToggle"><i class="fas fa-sun"></i> <span id="themeLabel">Light</span> <i
+          class="fas fa-moon"></i></div>
+      <button class="converter-btn" id="converterToggle"><i class="fas fa-balance-scale"></i> Converter</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tabs-modern">
+      <button class="tab-btn active" data-tab="assets"><i class="fas fa-wallet"></i>Assets</button>
+      <button class="tab-btn" data-tab="dps"><i class="fas fa-chart-line"></i> DPS Plans</button>
+      <button class="tab-btn" data-tab="livestock"><i class="fas fa-paw"></i> Livestock</button>
+      <button class="tab-btn" data-tab="result"><i class="fas fa-calculator"></i> Zakat Result</button>
+    </div>
+
+    <!-- DPS Section with Exemption Years -->
+    <div id="dps" class="section hidden">
+      <div class="card-modern">
+        <h3><i class="fas fa-calendar-alt"></i> DPS Plans – Exemption Years (No Zakat first N years)</h3>
+        <p class="help-text">Example: Opened May 2022, exempt 3 years → Zakat starts from May 2026. Each plan can have
+          its own exemption.</p>
+        <div id="dpsList"></div>
+        <button class="btn-primary" id="addDpsBtn"><i class="fas fa-plus-circle"></i> Add New DPS Plan</button>
+      </div>
+    </div>
+
+    <!-- Assets -->
+    <div id="assets" class="section">
+      <div class="card-modern">
+        <h3><i class="fas fa-landmark"></i> Zakatable Wealth</h3>
+        <div class="grid-2col">
+          <div class="input-group"><label><i class="fas fa-gem"></i> Gold Value</label><input type="number"
+              id="goldValue" placeholder="Value" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-ring"></i> Silver Value</label><input type="number"
+              id="silverValue" placeholder="Value" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> Cash on Hand</label><input
+              type="number" id="cash" placeholder="Cash" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-piggy-bank"></i> Saving Account</label><input type="number"
+              id="saving" placeholder="Savings" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-building"></i> Business Bank</label><input type="number"
+              id="businessBank" placeholder="Business account" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-shield-alt"></i> Insurance Value</label><input type="number"
+              id="insurance" placeholder="Cash value" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-home"></i> Real Estate (trade)</label><input type="number"
+              id="realEstate" placeholder="Property for resale" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-boxes"></i> Merchandise Inventory</label><input type="number"
+              id="inventory" placeholder="Goods value" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-chart-simple"></i> Stocks & Funds</label><input type="number"
+              id="stocks" placeholder="Market value" step="any"></div>
         </div>
-        <div class="all-items">
-            <label for="gold">Total Gold Value:
-                <input type="parseFloat" name="parseFloat" value="0" id="gold" placeholder="Total Gold Value">
-            </label>
-            <label for="silver">Total Silver Value:
-                <input type="parseFloat" name="parseFloat" value="0" id="silver">
-            </label>
-            <label for="cssh">Cash on Hand:
-                <input type="parseFloat" name="parseFloat" value="0" id="cssh">
-            </label>
-            <label for="saving">Saving Account:
-                <input type="parseFloat" name="parseFloat" value="0" id="saving">
-            </label>
-            <label for="bussinesAc">Business Bank Account:
-                <input type="parseFloat" name="parseFloat" value="0" id="bussinesAc">
-            </label>
-            <label for="insurance">Insurance Value:
-                <input type="parseFloat" name="parseFloat" value="0" id="insurance">
-            </label>
-            <label for="realState">Real State Property:
-                <input type="parseFloat" name="parseFloat" value="0" id="realState">
-            </label>
-            <label for="merchandiseInv">Merchandise Inventory:
-                <input type="parseFloat" name="parseFloat" value="0" id="merchandiseInv">
-            </label>
-            <label for="storckMutualFunds">Storck &amp; Mutual Funds:
-                <input type="parseFloat" name="parseFloat" value="0" id="storckMutualFunds">
-            </label>
-            <label for="liabilities">Liabilities:
-                <input type="parseFloat" name="parseFloat" value="0" id="liabilities">
-            </label>
+        <hr>
+        <div class="input-group"><label><i class="fas fa-minus-circle"></i> Liabilities (debts)</label><input
+            type="number" id="liabilities" placeholder="Outstanding debts" step="any"></div>
+      </div>
+    </div>
 
-            <div class="result">
-                <div>
-                    <h3>Total Assets: <span class="right-side" id="sub">00 ৳</span> </h3>
-                    <h3>Pay Zakat : <span class="right-side" id="payZakat">00 ৳</span></h3>
-                    <!-- <h3 >Pay Zakat : <span  class='right-side' id='payZakat-in'>00 ₹</span></h3> -->
-                </div>
-                <button id="button">Calculate</button>
-            </div>
+    <!-- Livestock -->
+    <div id="livestock" class="section hidden">
+      <div class="card-modern">
+        <h3><i class="fas fa-tractor"></i> Livestock Wealth</h3>
+        <div class="grid-2col">
+          <div class="input-group"><label><i class="fas fa-cow"></i> Cows (count)</label><input type="number" id="cows"
+              placeholder="Number" step="1"></div>
+          <div class="input-group"><label><i class="fas fa-dollar-sign"></i> Value per Cow</label><input type="number"
+              id="cowValue" placeholder="Value" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-goat"></i> Goats (count)</label><input type="number"
+              id="goats" placeholder="Number" step="1"></div>
+          <div class="input-group"><label><i class="fas fa-dollar-sign"></i> Value per Goat</label><input type="number"
+              id="goatValue" placeholder="Value" step="any"></div>
+          <div class="input-group"><label><i class="fas fa-otter"></i> Camels (count)</label><input type="number"
+              id="camels" placeholder="Number" step="1"></div>
+          <div class="input-group"><label><i class="fas fa-dollar-sign"></i> Value per Camel</label><input type="number"
+              id="camelValue" placeholder="Value" step="any"></div>
         </div>
+      </div>
+    </div>
+
+    <!-- Result with Riyal SVG support -->
+    <div id="result" class="section hidden">
+      <div class="card-modern result-hero">
+        <i class="fas fa-hand-holding-usd hero-icon"></i>
+        <div id="output" class="zakat-amount">0.00</div>
+        <p>Total Zakat Due (2.5%)</p>
+        <button class="btn-primary" id="recalcBtn"><i class="fas fa-sync-alt"></i> Recalculate</button>
+      </div>
+      <div class="card-modern">
+        <h4><i class="fas fa-list-ul"></i> Detailed Breakdown</h4>
+        <div id="summaryDetails" style="font-size: 0.85rem; margin-top: 12px;"></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <i class="fas fa-mosque" style="color: var(--accent); margin-right: 6px;"></i>
+    Zakat 2.5% &nbsp;|&nbsp; Exemption years supported &nbsp;|&nbsp;
+    <a href="https://www.almamunhossen.com/" target="_blank">© <span id="year"></span> Al Mamun Hossen</a>
+  </footer>
 
 
-        <footer>
-            <a href="https://www.almamunhossen.com/" target="_blank"> © <span id="year">2021</span> Al Mamun Hossen</a>
-        </footer>
-    </section>
+  <script src="app.js"></script>
 
+  <!-- ── CONVERTER PANEL ── -->
+  <div class="conv-overlay" id="convOverlay"></div>
+  <div class="conv-panel" id="convPanel">
+    <div class="conv-header">
+      <span><i class="fas fa-balance-scale"></i> Gold &amp; Silver Converter</span>
+      <button class="conv-close" id="convClose"><i class="fas fa-times"></i></button>
+    </div>
 
+    <!-- Unit Converter -->
+    <div class="conv-section">
+      <h4><i class="fas fa-exchange-alt"></i> Unit Converter</h4>
+      <div class="conv-row">
+        <div class="conv-field">
+          <label>Gram (g)</label>
+          <input type="number" id="convGram" placeholder="0" step="any" min="0">
+        </div>
+        <div class="conv-arrow"><i class="fas fa-arrows-alt-h"></i></div>
+        <div class="conv-field">
+          <label>Vori (ভরি)</label>
+          <input type="number" id="convVori" placeholder="0" step="any" min="0">
+        </div>
+      </div>
+      <p class="conv-note">1 Vori = 11.664 g &nbsp;·&nbsp; 1 g ≈ 0.0857 Vori</p>
+    </div>
 
+    <!-- Gold -->
+    <div class="conv-section">
+      <h4><i class="fas fa-coins conv-gold-icon"></i> Gold Value</h4>
+      <div class="conv-unit-row">
+        <span>Price per:</span>
+        <div class="conv-unit-toggle">
+          <button class="cut-btn active" id="goldUnitGram" data-metal="gold" data-unit="gram">/Gram</button>
+          <button class="cut-btn" id="goldUnitVori" data-metal="gold" data-unit="vori">/Vori</button>
+        </div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-field">
+          <label id="goldPriceLabel">Price per Gram</label>
+          <input type="number" id="goldPrice" placeholder="e.g. 8500" step="any" min="0">
+        </div>
+        <div class="conv-field">
+          <label id="goldAmtLabel">Amount (Gram)</label>
+          <input type="number" id="goldAmt" placeholder="e.g. 10" step="any" min="0">
+        </div>
+      </div>
+      <div class="conv-result" id="goldResult">Enter price &amp; amount to calculate</div>
+    </div>
 
-    <script src="app.js"></script>
+    <!-- Silver -->
+    <div class="conv-section">
+      <h4><i class="fas fa-coins conv-silver-icon"></i> Silver Value</h4>
+      <div class="conv-unit-row">
+        <span>Price per:</span>
+        <div class="conv-unit-toggle">
+          <button class="cut-btn active" id="silverUnitGram" data-metal="silver" data-unit="gram">/Gram</button>
+          <button class="cut-btn" id="silverUnitVori" data-metal="silver" data-unit="vori">/Vori</button>
+        </div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-field">
+          <label id="silverPriceLabel">Price per Gram</label>
+          <input type="number" id="silverPrice" placeholder="e.g. 110" step="any" min="0">
+        </div>
+        <div class="conv-field">
+          <label id="silverAmtLabel">Amount (Gram)</label>
+          <input type="number" id="silverAmt" placeholder="e.g. 100" step="any" min="0">
+        </div>
+      </div>
+      <div class="conv-result" id="silverResult">Enter price &amp; amount to calculate</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const VORI = 11.664;
+      const panel = document.getElementById('convPanel');
+      const overlay = document.getElementById('convOverlay');
+
+      function openPanel()  { panel.classList.add('open'); overlay.classList.add('open'); }
+      function closePanel() { panel.classList.remove('open'); overlay.classList.remove('open'); }
+
+      document.getElementById('converterToggle').addEventListener('click', () =>
+        panel.classList.contains('open') ? closePanel() : openPanel());
+      document.getElementById('convClose').addEventListener('click', closePanel);
+      overlay.addEventListener('click', closePanel);
+
+      // Unit converter
+      document.getElementById('convGram').addEventListener('input', function () {
+        const g = parseFloat(this.value);
+        document.getElementById('convVori').value = isNaN(g) ? '' : (g / VORI).toFixed(4);
+      });
+      document.getElementById('convVori').addEventListener('input', function () {
+        const v = parseFloat(this.value);
+        document.getElementById('convGram').value = isNaN(v) ? '' : (v * VORI).toFixed(4);
+      });
+
+      // Metal calculator state
+      const metalUnit = { gold: 'gram', silver: 'gram' };
+
+      function calcMetal(metal) {
+        const unit  = metalUnit[metal];
+        const price = parseFloat(document.getElementById(metal + 'Price').value) || 0;
+        const amt   = parseFloat(document.getElementById(metal + 'Amt').value) || 0;
+        const pricePerGram = unit === 'vori' ? price / VORI : price;
+        const grams = unit === 'vori' ? amt * VORI : amt;
+        const value = pricePerGram * grams;
+        const resultEl = document.getElementById(metal + 'Result');
+        if (price > 0 && amt > 0) {
+          resultEl.innerHTML = `<strong>Value: ${value.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</strong><span class="conv-result-sub">${amt} ${unit}${amt !== 1 ? 's' : ''} × ${price.toLocaleString()} per ${unit}</span>`;
+          resultEl.classList.add('has-value');
+        } else {
+          resultEl.innerHTML = 'Enter price &amp; amount to calculate';
+          resultEl.classList.remove('has-value');
+        }
+      }
+
+      function setUnit(metal, unit) {
+        metalUnit[metal] = unit;
+        document.getElementById(metal + 'UnitGram').classList.toggle('active', unit === 'gram');
+        document.getElementById(metal + 'UnitVori').classList.toggle('active', unit === 'vori');
+        document.getElementById(metal + 'PriceLabel').textContent = `Price per ${unit === 'vori' ? 'Vori' : 'Gram'}`;
+        document.getElementById(metal + 'AmtLabel').textContent   = `Amount (${unit === 'vori' ? 'Vori' : 'Gram'})`;
+        calcMetal(metal);
+      }
+
+      ['gold', 'silver'].forEach(metal => {
+        document.getElementById(metal + 'UnitGram').addEventListener('click', () => setUnit(metal, 'gram'));
+        document.getElementById(metal + 'UnitVori').addEventListener('click', () => setUnit(metal, 'vori'));
+        document.getElementById(metal + 'Price').addEventListener('input', () => calcMetal(metal));
+        document.getElementById(metal + 'Amt').addEventListener('input',   () => calcMetal(metal));
+      });
+    })();
+  </script>
 </body>
 
 </html>
